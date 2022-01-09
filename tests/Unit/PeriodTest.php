@@ -120,8 +120,6 @@ class PeriodTest extends TestCase
             $intervals[] = $interval->toString();
         }
 
-        // var_dump($intervals[count($intervals) - 1]);
-
         $this->assertEquals($expected, $intervals);
     }
 }

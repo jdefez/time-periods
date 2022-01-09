@@ -11,8 +11,8 @@ class PeriodIterator
 
     public function __construct(
         public Carbon $since,
-        public ?int $interval = 1,
-        public ?int $years = 4
+        public int $interval,
+        public int $years
     ) {
         $this->until = $this->since->copy()->addYears($this->years);
     }
@@ -20,9 +20,11 @@ class PeriodIterator
     public function intervals(): iterable
     {
         foreach ($this->getPeriod() as $date) {
-            $start_at = $this->fixDate($date);
+            if (! is_null($date)) {
+                $start_at = $this->fixDate($date);
 
-            yield new Interval($start_at, $this->since, $this->interval);
+                yield new Interval($start_at, $this->since, $this->interval);
+            }
         }
     }
 
@@ -31,7 +33,6 @@ class PeriodIterator
         return CarbonPeriod::since($this->since->copy()->startOfMonth())
             ->until($this->until)
             ->months($this->interval)
-            ->setDateClass(Carbon::class)
             ->excludeEndDate();
     }
 

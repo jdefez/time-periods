@@ -1,15 +1,20 @@
 {
-    "name": "jean/time-periods",
-    "require": {
-        "nesbot/carbon": "^2.55"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5",
-        "vimeo/psalm": "^4.18"
-    },
-    "autoload": {
-        "psr-4": {
-            "Jean\\TimePeriods\\": "src/"
-        }
+  "name": "jean/time-periods",
+  "require": {
+    "nesbot/carbon": "^2.55"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "vimeo/psalm": "^4.18"
+  },
+  "autoload": {
+    "psr-4": {
+      "Jean\\TimePeriods\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jean\\tests": "tests/"
+    }
+  }
 }

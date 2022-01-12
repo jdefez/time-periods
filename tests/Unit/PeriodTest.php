@@ -3,7 +3,7 @@
 namespace Jean\tests;
 
 use Carbon\Carbon;
-use Jean\TimePeriods\Interval;
+use Jean\TimePeriods\Period;
 use Jean\TimePeriods\PeriodIterator;
 use PHPUnit\Framework\TestCase;
 
@@ -15,9 +15,9 @@ class PeriodTest extends TestCase
     }
 
     /** @test */
-    public function it_sets_end_at_date()
+    public function it_sets_end_at_date(): void
     {
-        $period = new Interval(
+        $period = new Period(
             new Carbon('2020-01-30'),
             new Carbon('2019-05-30'),
             1
@@ -113,11 +113,11 @@ class PeriodTest extends TestCase
         int $interval,
         int $years,
         array $expected
-    ) {
+    ): void {
         $intervals = [];
         $iterator = new PeriodIterator($since, $interval, $years);
-        foreach ($iterator->intervals() as $interval) {
-            $intervals[] = $interval->toString();
+        foreach ($iterator->periods() as $period) {
+            $intervals[] = $period->toString();
         }
 
         $this->assertEquals($expected, $intervals);

@@ -17,13 +17,13 @@ class PeriodIterator
         $this->until = $this->since->copy()->addYears($this->years);
     }
 
-    public function intervals(): iterable
+    public function periods(): iterable
     {
         foreach ($this->getPeriod() as $date) {
             if (! is_null($date)) {
                 $start_at = $this->fixDate($date);
 
-                yield new Interval($start_at, $this->since, $this->interval);
+                yield new Period($start_at, $this->since, $this->interval);
             }
         }
     }

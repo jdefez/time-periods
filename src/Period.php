@@ -4,7 +4,7 @@ namespace Jean\TimePeriods;
 
 use Carbon\Carbon;
 
-class Interval
+class Period
 {
     public Carbon $end_at;
 
@@ -32,23 +32,26 @@ class Interval
 
     protected function getEndAt(): Carbon
     {
+        if (is_null($this->interval)) {
+            return $this->start_at->copy()->addYears(4);
+        }
+
         $end_at = $this->start_at
             ->copy()
             ->addMonthsNoOverflow($this->interval)
             ->startOfDay();
-
         $day = $this->birth_date->day;
 
-        if ($end_at->day !== $day) {
-            $end_of_month = $end_at->copy()->endOfMonth();
-
-            if ($end_of_month->day < $day) {
-                $end_at->setDay($end_of_month->day);
-            } else {
-                $end_at->setDay($day);
-            }
+        if ($end_at->day === $day) {
+            return $end_at;
         }
 
-        return $end_at;
+        $end_of_month = $end_at->copy()->endOfMonth();
+
+        if ($end_of_month->day < $day) {
+            return $end_at->setDay($end_of_month->day);
+        } else {
+            return $end_at->setDay($day);
+        }
     }
 }

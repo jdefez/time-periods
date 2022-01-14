@@ -21,9 +21,11 @@ class PeriodIterator
     {
         foreach ($this->getPeriod() as $date) {
             if (! is_null($date)) {
-                $start_at = $this->fixDate($date);
-
-                yield new Period($start_at, $this->since, $this->interval);
+                yield new Period(
+                    $this->fixDate($date),
+                    $this->since,
+                    $this->interval
+                );
             }
         }
     }
@@ -38,17 +40,18 @@ class PeriodIterator
 
     protected function fixDate(Carbon $date): Carbon
     {
-        $end_of_month = $date->copy()->endOfMonth();
         $day = $this->since->day;
 
-        if ($date->day !== $day) {
-            if ($day > $end_of_month->day) {
-                $date->setDay($end_of_month->day);
-            } else {
-                $date->setDay($day);
-            }
+        if ($date->day === $day) {
+            return $date;
         }
 
-        return $date;
+        $end_of_month = $date->copy()->endOfMonth();
+
+        if ($day > $end_of_month->day) {
+            return $date->setDay($end_of_month->day);
+        }
+
+        return $date->setDay($day);
     }
 }

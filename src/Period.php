@@ -33,7 +33,8 @@ class Period
     protected function getEndAt(): Carbon
     {
         if (is_null($this->interval)) {
-            return $this->start_at->copy()->addYears(4);
+            return $this->start_at->copy()
+                ->addYears(PeriodIterator::END_OF_LIFE);
         }
 
         $end_at = $this->start_at

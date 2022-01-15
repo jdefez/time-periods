@@ -7,14 +7,15 @@ use Carbon\CarbonPeriod;
 
 class PeriodIterator
 {
+    public Const END_OF_LIFE = 2;
+
     public Carbon $until;
 
     public function __construct(
         public Carbon $since,
-        public int $interval,
-        public int $years
+        public int $interval
     ) {
-        $this->until = $this->since->copy()->addYears($this->years);
+        $this->until = $this->since->copy()->addYears(self::END_OF_LIFE);
     }
 
     public function periods(): iterable

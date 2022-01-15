@@ -41,7 +41,6 @@ class PeriodTest extends TestCase
             'period starting on the 1rst of the month' => [
                 new Carbon('2019-05-01'),
                 1,
-                2,
                 [
                     '2019-05-01 00:00:00 - 2019-06-01 00:00:00',
                     '2019-06-01 00:00:00 - 2019-07-01 00:00:00',
@@ -72,7 +71,6 @@ class PeriodTest extends TestCase
             'period starting on the 30th of the month' => [
                 new Carbon('2019-05-30'),
                 1,
-                2,
                 [
                     '2019-05-30 00:00:00 - 2019-06-30 00:00:00',
                     '2019-06-30 00:00:00 - 2019-07-30 00:00:00',
@@ -111,11 +109,10 @@ class PeriodTest extends TestCase
     public function it_iterates_over_periods(
         Carbon $since,
         int $interval,
-        int $years,
         array $expected
     ): void {
         $intervals = [];
-        $iterator = new PeriodIterator($since, $interval, $years);
+        $iterator = new PeriodIterator($since, $interval);
         foreach ($iterator->periods() as $period) {
             $intervals[] = $period->toString();
         }

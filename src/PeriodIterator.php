@@ -11,10 +11,9 @@ class PeriodIterator
 
     public function __construct(
         public Carbon $since,
-        public int $interval,
-        public int $years
+        public int $interval
     ) {
-        $this->until = $this->since->copy()->addYears($this->years);
+        $this->until = $this->since->copy()->addYears(Period::MANDATE_DURATION);
     }
 
     public function periods(): iterable

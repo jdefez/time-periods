@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class Period
 {
-    public const MANDATE_DURATION = 4;
+    public const MANDATE_DURATION = 2;
 
     public Carbon $end_at;
 

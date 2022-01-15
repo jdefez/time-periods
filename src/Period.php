@@ -6,6 +6,8 @@ use Carbon\Carbon;
 
 class Period
 {
+    public const MANDATE_DURATION = 4;
+
     public Carbon $end_at;
 
     public function __construct(
@@ -33,7 +35,7 @@ class Period
     protected function getEndAt(): Carbon
     {
         if (is_null($this->interval)) {
-            return $this->start_at->copy()->addYears(4);
+            return $this->start_at->copy()->addYears(self::MANDATE_DURATION);
         }
 
         $end_at = $this->start_at
